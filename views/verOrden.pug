@@ -1,0 +1,78 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Polimetal S.A
+        link(rel="stylesheet" href="style.css")
+
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css")
+        link(rel="stylesheet", href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css")
+        
+        link(href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet')
+
+
+    body 
+        div(class="container" style="padding: 20px;")
+            a(href="/") 
+                div(style="text-align: center;")
+                    img(src="./images/logo.jpg" alt="logo" class="img-fluid")
+            a(href="/mtto", style="display: inline")
+                   h1(style="text-align:center") 
+                    i(class='bx bx-arrow-back bx-tada bx-flip-vertical')
+        
+            div(style="text-align: center;")
+                h2 Elija un sector
+            div(class="container")
+                table(id="t1" class="table table-striped" style="width:100%")
+                    thead(id="thmtto")
+                        th Id 
+                        th Detecto 
+                        th Equipo
+                        th Fecha 
+                        th Turno 
+                        th Parada de Proc.
+                        th Prioridad 
+                        th Tipo 
+                        th Hs Inicio 
+                        th Hs Fin 
+                        th Descripcion
+                        th Total
+                        th Accion
+                        
+                    tbody 
+                        each i in orden
+                            tr     
+                                td= i.idOrden 
+                                td= i.detecto 
+                                td= i.equipo 
+                                td= i.fecha 
+                                td= i.turno 
+                                td= i.paradaProceso 
+                                td= i.prioridad 
+                                td= i.tipo 
+                                td= i.horaInicio 
+                                td= i.horaFin 
+                                td= i.descripcion  
+                                td= i.tiempoTotal
+                                td
+                                   a(href="/editOrder?idOrden="+i.idOrden+"&idSector="+idSector)
+                                        h2(class="editIcon")
+                                            i(class='bx bxs-edit') 
+            br
+            hr
+
+        script(src="https://unpkg.com/boxicons@2.0.9/dist/boxicons.js")    
+        script(src="https://code.jquery.com/jquery-3.5.1.js")
+        script(src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js")
+        script(src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js")   
+        script. 
+            $(document).ready(function() {
+                $('#t1').DataTable();
+                } );  
+                                     
+    footer 
+        br 
+        div(class="col-12")
+            h6 &copy Copyright 2021 | Polimetal S.A                                
