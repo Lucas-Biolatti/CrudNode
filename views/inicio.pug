@@ -17,27 +17,29 @@ html(lang="es")
         div(style="text-align: center;")
             img(src="./images/logo.jpg" alt="logo" class="img-fluid")            
     
-    div(class="container")
-        div(class="row justify-content-center" )
+    div
+        div(class="cards" )
+
+            div(class="card")        
+            div(class="card")
+                h4 Mantenimiento
+                a(href="/mtto") 
+                    img(src="ot.jpg" class="card-img-top" alt="..." width="256px" height="200px")
+                div(class="card-body")
+                    p(class="card-text") Ordenes de trabajo para mantenimiento.
         
-            div(class="col-4")
-                div(class="card" style="width: 18rem;")
-                    h4 Mantenimiento
-                    a(href="/mtto") 
-                        img(src="ot.jpg" class="card-img-top" alt="..." width="256px" height="200px")
-                    div(class="card-body")
-                        p(class="card-text") Ordenes de trabajo para mantenimiento.
+            div(class="card")
+                h4 Higiene y Seguridad
+                a(href="/Seguridad") 
+                    img(src="accidente1.png" class="card-img-top" alt="..." width="256px" height="200px")
+                div(class="card-body")
+                    p(class="card-text") Reporte de accidente o condiciones inseguras.
             
+            div(class="card")
+           
             
-            div(class="col-4") 
-                div(class="card" style="width: 18rem;")
-                    h4 Higiene y Seguridad
-                    a(href="/Seguridad") 
-                        img(src="accidente1.png" class="card-img-top" alt="..." width="256px" height="200px")
-                    div(class="card-body")
-                        p(class="card-text") Reporte de accidente o condiciones inseguras.
       
-  footer 
+    footer 
             br 
             div(class="col-12")
                 h6 &copy Copyright 2021 | Polimetal S.A 

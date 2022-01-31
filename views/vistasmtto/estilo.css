@@ -1,0 +1,16 @@
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+    padding: 2rem 1rem;
+}
+.card-single{
+    display: flex;
+    justify-content: space-between; 
+    padding: 2rem;
+    background-color: rgb(175, 175, 175);
+    border-radius: 2rem;
+}
+.card-single span:first-child{
+    font-size: 3rem;
+}

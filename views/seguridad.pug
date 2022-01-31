@@ -9,12 +9,45 @@ html(lang="es")
         script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous")
         link(rel="stylesheet", href="style.css")
         link(href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet')
+        link(rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css")
+        link(rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css")
     body 
         div(class="container" style="padding: 20px;")
             a(href="/") 
                 div(style="text-align: center;")
                     img(src="./images/logo.jpg" alt="logo" class="img-fluid")
-        
+            
+            div(class="cards")
+                div(class="card-single")
+                    div
+                        h1(id="txt-accident") 54
+                        span Accidentes/Incidentes
+                    div
+                        span(class="las la-exclamation-triangle")
+                div(class="card-single")
+                    div
+                        h1(id="txt-actos") 54
+                        span Actos/ Condiciones inseguras
+                    div
+                        span(class="las la-exclamation-circle")
+                div(class="card-single")
+                    div
+                        h1
+                        span Todos los Accidentes
+                    div
+                        a(href="listAccident")
+                            span(class="las la-hand-point-right")
+                div(class="card-single")
+                    div
+                        h1
+                        span Todos los Actos inseguros
+                    div
+                        a(href="listActos")
+                            span(class="las la-hand-point-right")
+                
+                
+                
+
             div(style="text-align: center;")
                 h2 Elija un sector 
             div(class="table-responsive")
@@ -37,22 +70,7 @@ html(lang="es")
                                 td 
                                     a(href="actosInseguros?id="+i.idSector)
                                         button(class="button btn-warning") Acto/Condicion Insegura  
-                                    
-                      
-                              
-            br
-            hr
-            h2 Listados
-            
-            a(href="listAccident")
-                div(class="d-grid gap-2") 
-                    button(type="button", class="button btn-danger") ACCIDENTES/INCIDENTES
-            br  
-            a(href="listActos")
-                div(class="d-grid gap-2") 
-                    button(type="button", class="button btn-warning") ACTOS/CONDICIONES INSEGURAS  
-           
-                                           
+          
         footer 
             br 
             div(class="col-12")

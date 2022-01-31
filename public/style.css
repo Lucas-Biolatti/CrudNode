@@ -46,3 +46,25 @@ h2{
 #row{
     align-content: center;
 }
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 3rem;
+    padding: 1rem 0.5rem;
+}
+.card-single{
+    display: flex;
+    justify-content: space-between; 
+    padding: 2rem;
+    background-image: radial-gradient(circle at 50% -20.71%, #edf3ff 0, #b5c9f2 50%, #79a1e2 100%);
+    border-radius: 2rem;
+    
+}
+.card-single span:first-child{
+    font-size: 3rem;
+    color:white
+   
+}
+.card-single span:last-child{
+    color: white;
+}
