@@ -39,6 +39,7 @@ router.get('/mtto',(req,res)=>{
 })
 router.get('/newOrder',(req,res)=>{
     let idSector = url.parse(req.url,true).query.id;
+    let sector = url.parse(req.url,true).query.nombre;
     let sql2 = "SELECT * FROM equipo WHERE Sector=?";
     let equipo = [];
     conexion.query(sql2,[parseInt(idSector)],(error,result,files)=>{
@@ -47,7 +48,7 @@ router.get('/newOrder',(req,res)=>{
             for(let i=0;i<result.length;i++){
                 equipo.push(result[i])
             }
-            res.render('newOrder',{equipo:equipo,idSector:idSector});
+            res.render('newOrder',{equipo:equipo,idSector:idSector,sector:sector});
         }
   
     })
@@ -66,18 +67,39 @@ router.get('/actosInseguros',(req,res)=>{
 )
 router.get('/seguridad',(req,res)=>{
     let sql1 = "SELECT * FROM sector";
+    let sql2= "SELECT * FROM accidentes";
+    let sql3= "SELECT * FROM actosinseguros";
     let sector = [];
+    let accidentes=0;
+    let actos=0;
+
+    conexion.query(sql2,(error,result)=>{
+        if(!error){
+            for(let i=0;i<result.length;i++){
+                accidentes++
+            }
+            
+        }
+    })
+    conexion.query(sql3,(error,result)=>{
+        if(!error){
+        for(let i=0;i<result.length;i++){
+            actos++
+        }
+    }
+    })
+   console.log(accidentes)
     
     conexion.query(sql1,(error,result,files)=>{
         if(!error){
-           
+            
             for(let i=0;i<result.length;i++){
                 sector.push(result[i])
             }
          
         }
     
-    res.render("seguridad",{sector:sector});    
+    res.render("seguridad",{sector:sector, accidentes:accidentes,actos:actos});    
     })
 })
 router.get('/listAccident',(req,res)=>{
@@ -138,13 +160,13 @@ router.get('/listActos',(req,res)=>{
         }
     })
 })
-router.get('/resolverOrden',(req,res)=>{
-    res.render('./vistasmtto/resolverOrden')
-})
+
 
 //Invocar js de metodos
 const crud = require('./controllers/crud');
 const { resourceLimits } = require('worker_threads');
+
+router.get('/resolverorden',crud.resolverOrden);
 
 //Guardar Orden de Trabajo
 router.post('/guardar',crud.add);
@@ -161,6 +183,8 @@ router.get('/editOrder',crud.editOrder);
 router.post('/updateOrder',crud.edit);
 
 router.get('/editAccidente',crud.editAccident);
+
+router.post('/addCierreOrden',crud.addCierreOrden);
 module.exports=router;
 
 

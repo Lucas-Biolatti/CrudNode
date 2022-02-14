@@ -68,11 +68,18 @@ exports.addIncident = (req,res)=>{
 //Listados
 exports.serchOrder = (req,res)=>{
     let idSector = url.parse(req.url,true).query.id;
+    let sector= url.parse(req.url,true).query.nombre;
     let sql1 = "SELECT * FROM ordentrabajo WHERE sector=?";
+    
+    
     
     conexion.query(sql1,[parseInt(idSector)],(error,result,files)=>{
         if(!error){
+            let tiempoTotal=0
             let resultados=[];
+            let abiertas=0
+            let cerradas=0
+            let enProceso=0
             for(let i=0;i<result.length;i++){
             let f = new Date(result[i].fecha);
             let fecha = f.getDate()+"/"+f.getMonth()+1+"/"+f.getUTCFullYear();
@@ -93,10 +100,27 @@ exports.serchOrder = (req,res)=>{
                 horaFin: fin,
                 descripcion:  result[i].descripcion,
                 tiempoTotal:(ffin-finicio)/1000/60,
+                estado:result[i].estado
             }
+            if(result[i].estado=="Pendiente"){
+                abiertas++;
+            }if(result[i].estado=="Cerrado"){
+                cerradas++;
+            }if(result[i].estado=="En Proceso"){
+                enProceso++;
+            }
+            tiempoTotal+=(ffin-finicio)/1000/60;
             resultados.push(resultado);
         }
-            res.render('verOrden',{orden:resultados,idSector:parseInt(idSector)});
+            res.render('verOrden',{
+                orden:resultados,
+                idSector:parseInt(idSector),
+                tt:tiempoTotal,
+                abiertas:abiertas,
+                cerradas:cerradas,
+                enProceso:enProceso,   
+                sector:sector 
+            });
          }
         else{
             console.log("Error de conexion");
@@ -189,6 +213,47 @@ exports.editAccident = (req,res)=>{
             res.render('editAccident',{result:result,idAccidente:idAccidente,idSector:idSector,fecha:f});        
         }
 
+    })
+    
+}
+//Updates
+exports.resolverOrden = (req,res)=>{
+    let idOrden = url.parse(req.url,true).query.idOrden;
+    const sqlorden = "SELECT * FROM ordentrabajo WHERE idOrden = ?"
+    const sqlestado = "UPDATE `ordentrabajo` SET `estado`=? WHERE `idOrden`=?"
+    const sql = "INSERT INTO `cierreordenes`(`idCierre`, `idOrden`, `fecha`, `descripcion`, `tiempo`, `repuestos`, `um`, `cantidad`, `personas`, `pendiente`, `observaciones`) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+    let form = new formidable.IncomingForm();
+    conexion.query(sqlorden,[idOrden],(error,result)=>{
+        if(!error && result.length>0){
+            let dia = (result[0].fecha.getUTCDate()<10?'0':'')+result[0].fecha.getUTCDate();
+            let mes = ((result[0].fecha.getMonth()+1)<10?'0':'')+(result[0].fecha.getMonth()+1);
+            let f = dia+"/"+mes+"/"+result[0].fecha.getUTCFullYear();
+            let hi= result[0].horaInicio.getHours()+":"+result[0].horaInicio.getMinutes();
+            let hf= result[0].horaFin.getHours()+":"+result[0].horaFin.getMinutes();
+            let total=(result[0].horaFin-result[0].horaInicio)/1000/60;
+            res.render('./vistasmtto/resolverOrden',{result:result, f:f, hi:hi, hf:hf,total:total,idOrden:idOrden});
+        }else{res.send(`<h1>No se encontraron resultados</h1>`)};
+    })
+}
+exports.addCierreOrden = (req,res)=>{
+    let form = new formidable.IncomingForm();
+    const sql = "INSERT INTO cierreOrdenes(idOrden,fecha,descripcion,tiempo,repuestos,um,cantidad,personas,pendiente,observaciones) VALUES (?,?,?,?,?,?,?,?,?,?)"
+    const sqlestado = "UPDATE `ordentrabajo` SET `estado`=? WHERE `idOrden`=?"
+    form.parse(req,(error,field)=>{
+        if(!error){
+           
+            conexion.query(sql,[field.idOrden,field.fecha,field.descripcion,parseInt(field.tiempo),field.repuestos,field.um,parseInt(field.cantidad),parseInt(field.personas),field.pendiente,field.observaciones],(error)=>{
+                if(!error){
+                    console.log("Cierre exitoso");
+                }else{console.log("primer conexion:"+error)}
+            })
+            conexion.query(sqlestado,[field.estado,field.idOrden],(error)=>{
+                if(!error){
+                    console.log("Actualizado Estado con exito");
+                }else{console.log("segunda conexion:"+error)}
+            })
+            res.send(`<h1>Se Actualizo todo con exito</h1>`);
+        }
     })
     
 }

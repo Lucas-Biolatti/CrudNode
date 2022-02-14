@@ -14,88 +14,105 @@ html(lang="es")
             a(href="/") 
                 div(style="text-align: center;")
                     img(src="./images/logo.jpg" alt="logo" class="img-fluid")
+            if result.length > 0        
 
-            h2(class="bg-dark bg-gradient text-white") Descripcion de la Orden de trabajo 
-            div(class="container")
-                div(class="row") 
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Detecto
-                    p(class="col-3 p-2 mb-2" id="detecto")
+                h2(class="bg-dark bg-gradient text-white")= "Descripcion de la Orden de trabajo N°"+idOrden 
+                div(class="container")
+                    div(class="row") 
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Detecto
+                        p(class="col-3 p-2 mb-2" id="detecto")= result[0].detecto
+                        
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Equipo
+                        p(class="col-3 p-2 mb-2" id="detecto")= result[0].equipo
+                    div(class="row")
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Fecha
+                        p(class="col-3 p-2 mb-2" id="detecto")= f
+                        
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Turno
+                        p(class="col-3 p-2 mb-2" id="detecto")= result[0].turno
+                    div(class="row")
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Parada de Proceso?
+                        p(class="col-3 p-2 mb-2" id="detecto")= result[0].paradaProceso
+                        
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Prioridad
+                        p(class="col-3 p-2 mb-2" id="detecto")= result[0].prioridad
+                    div(class="row")
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Tipo de Parada?
+                        p(class="col-3 p-2 mb-2" id="detecto")= result[0].tipoParada
+                        
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Hora de Inicio
+                        p(class="col-3 p-2 mb-2" id="detecto")= hi
+                    div(class="row")
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Hora de Finalizacion 
+                        p(class="col-3 p-2 mb-2" id="detecto")= hf
+
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Tiempo de Parada
+                        p(class="col-3 p-2 mb-2" id="detecto")= total+" Minutos"
+                        
                     
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Equipo
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                div(class="row")
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Fecha
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                    
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Turno
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                div(class="row")
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Parada de Proceso?
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                    
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Prioridad
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                div(class="row")
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Tipo de Parada?
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                    
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Hora de Inicio
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                div(class="row")
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Hora de Finalizacion 
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                    
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Tipo de Parada?
-                    p(class="col-3 p-2 mb-2" id="detecto")
-                div(class="row")
-                    p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Descripcion de la parada
-                    p(class="col-9 p-2 mb-2" id="detecto")
-            hr
-        
-            hr
-            h2(class="bg-dark bg-gradient text-white") Descripcion de la Resolucion
-            form(action="cerrarOrden", method="post")
-                div(class="row")
-                    div(class="col-md-3")
-                        label(for="fecha" class="form-label") Fecha
-                        input(type="date" class="form-control" id="fecha" name="fecha" required)
-                    div(class="col-md-9")
-                        label(for="descripcion" class="form-label") Descripcion de la Reparacion
-                        input(type="text", name="descripcion" class="form-control" id="descripcion")
-                br
+                    div(class="row")
+                        p(class="col-3 p-2 mb-2 bg-danger text-white bg-gradient") Descripcion de la parada
+                        p(class="col-9 p-2 mb-2" id="detecto")= result[0].descripcion
                 hr
-                div(class="row")
-                    
-                    div(class="col-md-8")
-                        label(for="repuestos" class="form-label") Repuestos Utilizados
-                        input(type="text", name="repuestos" class="form-control" id="repuestos")
-                    div(class="col-md-2")
-                        label(for="um" class="form-label") Unidad de Medida 
-                        input(type="text", name="um" class="form-control" id="um")
-                    div(class="col-md-2")
-                        label(for="cantidad" class="form-label") Cantidad 
-                        input(type="number", name="cantidad" id="cantidad" class="form-control")
-                br
+            
                 hr
-                div(class="row")
-                    
-                    div(class="col-md-2")
-                        label(for="personas" class="form-label") Personas
-                        input(type="number", name="personas" class="form-control" id="personas")
-                    div(class="col-md-5")
-                        label(for="pendiente" class="form-label") Tareas pendientes 
-                        input(type="text", name="pendiente" class="form-control" id="pendiente")
-                    div(class="col-md-5")
-                        label(for="observaciones" class="form-label") Observaciones 
-                        input(type="text", name="observaciones" id="observaciones" class="form-control")
-                br
-                input(type="submit", value="Cerrar Orden" class="button btn-success")
-                   
-                    
-    footer 
-            br 
-            div(class="col-12" style="text-align:center")
-                h6 &copy Copyright 2021 | Polimetal S.A            
+                h2(class="bg-dark bg-gradient text-white") Descripcion de la Resolucion
+                form(action="addCierreOrden", method="post")
+
+                    div(class="row")
+                        input(type="hidden", name="idOrden", value=idOrden)
+                        div(class="col-md-3")
+                            label(for="fecha" class="form-label") Fecha
+                            input(type="date" class="form-control" id="fecha" name="fecha" required)
+                        div(class="col-md-6")
+                            label(for="descripcion" class="form-label") Descripcion de la Reparacion
+                            input(type="text", name="descripcion" class="form-control" id="descripcion")
+                        div(class="col-md-3")
+                            label(for="tiempo" class="form-label") Tiempo
+                            input(type="number", name="tiempo" class="form-control" id="tiempo")
+                    br
+                    hr
+                    div(class="row")
+                        
+                        div(class="col-md-8")
+                            label(for="repuestos" class="form-label") Repuestos Utilizados
+                            input(type="text", name="repuestos" class="form-control" id="repuestos")
+                        div(class="col-md-2")
+                            label(for="um" class="form-label") Unidad de Medida 
+                            input(type="text", name="um" class="form-control" id="um")
+                        div(class="col-md-2")
+                            label(for="cantidad" class="form-label") Cantidad 
+                            input(type="number", name="cantidad" id="cantidad" class="form-control")
+                    br
+                    hr
+                    div(class="row")
+                        
+                        div(class="col-md-2")
+                            label(for="personas" class="form-label") Personas
+                            input(type="number", name="personas" class="form-control" id="personas")
+                        div(class="col-md-5")
+                            label(for="pendiente" class="form-label") Tareas pendientes 
+                            input(type="text", name="pendiente" class="form-control" id="pendiente")
+                        div(class="col-md-5")
+                            label(for="observaciones" class="form-label") Observaciones 
+                            input(type="text", name="observaciones" id="observaciones" class="form-control")
+                        div(class="col-md-12")
+                            label(for="observaciones" class="form-label") Estado
+                            select(name="estado" class="form-select")
+                                option Pendiente 
+                                option En Proceso 
+                                option Cerrado 
+                    br
+
+                    input(type="submit", value="Cerrar Orden" class="button btn-success")
+            else
+                 h1= "No se encontraron resultados"
+                        
+                        
+        footer 
+                br 
+                div(class="col-12" style="text-align:center")
+                    h6 &copy Copyright 2021 | Polimetal S.A            
                     
                 
                 
