@@ -22,30 +22,39 @@ html(lang="es")
             a(href="/mtto", style="display: inline")
                    h1(style="text-align:center") 
                     i(class='bx bx-arrow-back bx-tada bx-flip-vertical')
+            div(style="text-align: center;")
+                h2= "Listado de Ordenes - Sector "+sector
             div(class="cards")
                 div(class="card-single")
                     div
-                        h1 54
+                        h1= abiertas
                         span Ordenes Abiertas
                     div
                         span(class="las la-file-alt")
                 
                 div(class="card-single")
                     div
-                        h1 54
+                        h1= cerradas
                         span Ordenes Cerradas
                     div
                         span(class="las la-check-circle")
                 
                 div(class="card-single")
                     div
-                        h1 54
+                        h1= enProceso
+                        span Ordenes en Proceso
+                    div
+                        span(class="las la-check-circle")
+                
+                div(class="card-single")
+                    div
+                        h1= tt
+                            
                         span Minutos acumulados
                     div
                         span(class="las la-clock")
 
-            div(style="text-align: center;")
-                h2 Listado de Ordenes
+            
             div(class="container")
                 table(id="t1" class="table table-striped" style="width:100%")
                     thead(id="thmtto")
@@ -81,7 +90,7 @@ html(lang="es")
                                 td= i.tiempoTotal
                                 td= i.estado
                                 td
-                                   a(href="/editOrder?idOrden="+i.idOrden+"&idSector="+idSector)
+                                   a(href="/ordenXSector?idOrden="+i.idOrden+"&idSector="+idSector)
                                         h2(class="editIcon")
                                             i(class='bx bxs-edit') 
             br
